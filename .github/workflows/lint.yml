@@ -1,19 +1,40 @@
-#Goal: whenever someone changes the python code the linter will check syntax format and indention correct or not
+
+# Goal: Automatically check Python code using Ruff
 
 name: Auto Linter
+
 on:
   push:
-    paths: "*.py"
+    paths:
+      - '**.py'
+
+  pull_request:
+    paths:
+      - '**.py'
+
 jobs:
   code:
     runs-on: ubuntu-latest
+
     steps:
-    # this steps will clone the code
-      - name: Checkout/Clone the code
+      # Step 1: Clone the repository
+      - name: Checkout Code
         uses: actions/checkout@v7
-        
-        #this steps will install pip run which is python linter
+
+      # Step 2: Setup Python
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      # Step 3: Install Ruff
       - name: Install Linter
         run: pip install ruff
-        
-          
+
+      # Step 4: Check Python linting errors
+      - name: Run Ruff Linter
+        run: ruff check .
+
+      # Step 5: Check code formatting and indentation
+      - name: Check Code Formatting
+        run: ruff format --check .
