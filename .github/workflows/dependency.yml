@@ -1,0 +1,16 @@
+name: Dependency demo
+on: 
+  workflow_dispatch: 
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Build is running"
+    
+  test:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Test Job
+        run: echo "Test JOB"
