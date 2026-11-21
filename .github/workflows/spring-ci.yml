@@ -15,14 +15,14 @@ jobs:
           java-version: '25'
 
       - name: Build and Test (maven)
-        working-directory: C:/Users/Imam/Downloads/devops-project/devops-project
+        working-directory: ./devops-project
         run: mvn -B clean verify
 
       - name: Upload Test Reports
         uses: actions/upload-artifact@v4
         with:
           name: test-reports
-          path: C:/Users/Imam/Downloads/devops-project/devops-project/target/surefire-reports
+          path: ./devops-project/target/surefire-reports
 
 
   docker-build-push:
